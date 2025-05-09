@@ -1,102 +1,368 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
+import {
+  Bell,
+  Send,
+  Instagram,
+  Twitter,
+  Facebook,
+  Linkedin,
+  Globe,
+  CheckCircle,
+  ArrowRight,
+} from "lucide-react";
 
-export default function Home() {
+export default function LandingPage() {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = (e) => {
+    if (e) {
+      e.preventDefault();
+    }
+
+    if (!email.trim() || !email.includes("@")) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    // Here you would integrate with your backend/email service
+    console.log("Email submitted:", email);
+    setSubmitted(true);
+    setError("");
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-sans text-gray-800">
+      {/* Navigation */}
+      <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="flex items-center space-x-2">
+          <Send className="w-6 h-6 text-blue-600" />
+          <span className="text-xl font-bold">PostOnce</span>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+        <div>
+          <button className="px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">
+            About
+          </button>
+          <button
+            className="ml-4 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+            onClick={scrollToTop}
+          >
+            Join Waitlist
+          </button>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="container mx-auto px-6 pt-16 pb-24 lg:flex items-center">
+        <div className="lg:w-1/2 lg:pr-12">
+          <span className="inline-block px-3 py-1 bg-blue-100 text-blue-600 text-xs font-medium rounded-full mb-4">
+            Coming Soon • Alpha Release
+          </span>
+          <h1 className="text-4xl lg:text-5xl font-bold leading-tight mb-6">
+            Publish content across{" "}
+            <span className="text-blue-600">all platforms</span> with a single
+            click
+          </h1>
+          <p className="text-lg text-gray-600 mb-8">
+            Save time and reach more people by posting your content to multiple
+            social media and blogging platforms simultaneously.
+          </p>
+
+          {/* Waitlist Form */}
+          <div className="mb-8 max-w-md" id="waitlist-form">
+            {!submitted ? (
+              <div className="flex flex-col sm:flex-row">
+                <div className="flex-grow mb-2 sm:mb-0 sm:mr-2">
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    aria-label="Email address"
+                  />
+                  {error && (
+                    <p className="mt-1 text-red-500 text-sm">{error}</p>
+                  )}
+                </div>
+                <button
+                  onClick={handleSubmit}
+                  className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center"
+                >
+                  Join Waitlist
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-start">
+                <CheckCircle className="w-5 h-5 text-green-500 mr-3 mt-0.5" />
+                <div>
+                  <p className="font-medium text-green-800">
+                    Thanks for joining our waitlist!
+                  </p>
+                  <p className="text-green-600">
+                    We'll notify you when we're ready for early access.
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Social Proof */}
+          <div className="text-sm text-gray-500">
+            <p className="mb-2">Join our growing community of early adopters</p>
+            <div className="flex -space-x-2">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div
+                  key={i}
+                  className="w-8 h-8 rounded-full bg-gray-300 border-2 border-white flex items-center justify-center text-xs font-medium text-gray-600"
+                >
+                  {String.fromCharCode(64 + i)}
+                </div>
+              ))}
+              <div className="w-8 h-8 rounded-full bg-blue-100 border-2 border-white flex items-center justify-center text-xs font-medium text-blue-600">
+                +118
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Hero Image */}
+        <div className="lg:w-1/2 mt-12 lg:mt-0">
+          <div className="bg-white rounded-xl shadow-xl p-6 relative">
+            <div className="absolute -top-3 -left-3 px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded-full">
+              Preview
+            </div>
+            <div className="flex justify-between mb-6">
+              <div className="flex items-center">
+                <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white">
+                  <Send className="w-5 h-5" />
+                </div>
+                <div className="ml-3">
+                  <div className="font-medium">New Post</div>
+                  <div className="text-sm text-gray-500">Draft</div>
+                </div>
+              </div>
+              <button className="px-4 py-1 bg-blue-600 text-white text-sm font-medium rounded-full">
+                Publish All
+              </button>
+            </div>
+            <div className="mb-4">
+              <div className="h-4 bg-gray-200 rounded-full w-3/4 mb-3"></div>
+              <div className="h-4 bg-gray-200 rounded-full w-full mb-3"></div>
+              <div className="h-4 bg-gray-200 rounded-full w-5/6"></div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="h-24 bg-gray-100 rounded-lg"></div>
+              <div className="h-24 bg-gray-100 rounded-lg"></div>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <div className="flex items-center px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">
+                <Twitter className="w-4 h-4 mr-1" />
+                Twitter
+                <CheckCircle className="w-4 h-4 ml-1 text-green-500" />
+              </div>
+              <div className="flex items-center px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">
+                <Instagram className="w-4 h-4 mr-1" />
+                Instagram
+                <CheckCircle className="w-4 h-4 ml-1 text-green-500" />
+              </div>
+              <div className="flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                <Facebook className="w-4 h-4 mr-1" />
+                Facebook
+                <CheckCircle className="w-4 h-4 ml-1 text-green-500" />
+              </div>
+              <div className="flex items-center px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-sm">
+                <Linkedin className="w-4 h-4 mr-1" />
+                LinkedIn
+                <CheckCircle className="w-4 h-4 ml-1 text-green-500" />
+              </div>
+              <div className="flex items-center px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">
+                <Globe className="w-4 h-4 mr-1" />
+                Blog
+                <CheckCircle className="w-4 h-4 ml-1 text-green-500" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="bg-white py-16">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Why PostOnce?</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Our platform streamlines your content distribution workflow,
+              saving you time and expanding your reach.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Feature 1 */}
+            <div className="p-6 bg-blue-50 rounded-xl">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                <Send className="w-6 h-6 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">
+                One-Click Publishing
+              </h3>
+              <p className="text-gray-600">
+                Write once and publish everywhere. No more copying and pasting
+                between different platforms.
+              </p>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="p-6 bg-blue-50 rounded-xl">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                <Globe className="w-6 h-6 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Multiple Platforms</h3>
+              <p className="text-gray-600">
+                Connect all your social media accounts and blogs in one place
+                for seamless distribution.
+              </p>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="p-6 bg-blue-50 rounded-xl">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                <Bell className="w-6 h-6 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">
+                Analytics & Insights
+              </h3>
+              <p className="text-gray-600">
+                Track performance across all platforms with unified analytics
+                and engagement metrics.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Call To Action */}
+      <section className="py-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold mb-4">
+            Be among the first to try PostOnce
+          </h2>
+          <p className="text-blue-100 max-w-2xl mx-auto mb-8">
+            Our alpha release is coming soon. Join the waitlist now and get
+            early access to our platform.
+          </p>
+          <button
+            className="px-8 py-3 bg-white text-blue-600 text-lg font-medium rounded-lg hover:bg-blue-50 transition-colors"
+            onClick={scrollToTop}
+          >
+            Join Waitlist
+          </button>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-blue-900 text-blue-200 py-12">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between mb-8">
+            <div className="mb-6 md:mb-0">
+              <div className="flex items-center space-x-2 mb-4">
+                <Send className="w-6 h-6 text-white" />
+                <span className="text-xl font-bold text-white">PostOnce</span>
+              </div>
+              <p className="max-w-xs">
+                Publish your content across multiple platforms with just one
+                click.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+              <div>
+                <h4 className="text-white font-medium mb-4">Company</h4>
+                <ul className="space-y-2">
+                  <li>
+                    <button className="hover:text-white transition-colors">
+                      About
+                    </button>
+                  </li>
+                  <li>
+                    <button className="hover:text-white transition-colors">
+                      Careers
+                    </button>
+                  </li>
+                  <li>
+                    <button className="hover:text-white transition-colors">
+                      Contact
+                    </button>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="text-white font-medium mb-4">Resources</h4>
+                <ul className="space-y-2">
+                  <li>
+                    <button className="hover:text-white transition-colors">
+                      Blog
+                    </button>
+                  </li>
+                  <li>
+                    <button className="hover:text-white transition-colors">
+                      Documentation
+                    </button>
+                  </li>
+                  <li>
+                    <button className="hover:text-white transition-colors">
+                      FAQ
+                    </button>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="text-white font-medium mb-4">Legal</h4>
+                <ul className="space-y-2">
+                  <li>
+                    <button className="hover:text-white transition-colors">
+                      Privacy Policy
+                    </button>
+                  </li>
+                  <li>
+                    <button className="hover:text-white transition-colors">
+                      Terms of Service
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-8 border-t border-blue-800 flex flex-col md:flex-row justify-between items-center">
+            <p>
+              &copy; {new Date().getFullYear()} PostOnce. All rights reserved.
+            </p>
+            <div className="flex space-x-4 mt-4 md:mt-0">
+              <button className="hover:text-white transition-colors">
+                <Twitter className="w-5 h-5" />
+              </button>
+              <button className="hover:text-white transition-colors">
+                <Facebook className="w-5 h-5" />
+              </button>
+              <button className="hover:text-white transition-colors">
+                <Instagram className="w-5 h-5" />
+              </button>
+              <button className="hover:text-white transition-colors">
+                <Linkedin className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   );
