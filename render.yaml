@@ -13,7 +13,7 @@ services:
   - type: web
     name: nextjs-static
     runtime: static
-    buildCommand: npm run build
+    buildCommand: npm ci && npm run build
     staticPublishPath: out
     pullRequestPreviewsEnabled: true # optional
     envVars:
