@@ -17,7 +17,7 @@ export default function LandingPage() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     if (e) {
       e.preventDefault();
     }
@@ -107,7 +107,7 @@ export default function LandingPage() {
                     Thanks for joining our waitlist!
                   </p>
                   <p className="text-green-600">
-                    We'll notify you when we're ready for early access.
+                    We&#39;ll notify you when we&#39;re ready for early access.
                   </p>
                 </div>
               </div>
