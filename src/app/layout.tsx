@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-// Add TypeScript declaration for window.dataLayer
-declare global {
-  interface Window {
-    dataLayer: any[];
-  }
-}
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,29 +25,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/*
-  Google Analytics script
-*/}
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-FCQD6JVZJE"
-        ></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){window.dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-FCQD6JVZJE');
-    `,
-          }}
-        />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <GoogleAnalytics gaId="G-FCQD6JVZJE" />
       </body>
     </html>
   );
