@@ -133,7 +133,9 @@ export default function LandingPage() {
               ].map((src, idx) => (
                 <Image
                   key={idx}
+                  width={100}
                   src={src}
+                  height={100}
                   alt={`Avatar ${idx + 1}`}
                   className="w-9 h-9 rounded-full border-2 border-white object-cover"
                 />
