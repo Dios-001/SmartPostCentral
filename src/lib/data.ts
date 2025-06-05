@@ -1,7 +1,7 @@
 "use server";
 import client from "./mongodb";
 
-export async function sendToWaitlist(formdata: FormData, location: Object) {
+export async function sendToWaitlist(formdata: FormData, location: object) {
   try {
     const email = formdata.get("email");
     const source = location;
