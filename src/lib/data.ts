@@ -18,6 +18,9 @@ export async function sendToWaitlist(formdata: FormData) {
     return { success: true };
   } catch (e) {
     console.error("Error inserting email to waitlist:", e);
-    return { success: false, error: e.message };
+    return {
+      success: false,
+      error: e instanceof Error ? e.message : String(e),
+    };
   }
 }
