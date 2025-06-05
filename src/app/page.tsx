@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { avatar, avatar1, avatar2, avatar3, avatar4 } from "@/lib/avatars";
+import { sendToWaitlist } from "@/lib/data";
 import {
   Bell,
   Send,
@@ -17,20 +19,23 @@ export default function LandingPage() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    if (e) {
-      e.preventDefault();
-    }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
     if (!email.trim() || !email.includes("@")) {
       setError("Please enter a valid email address");
       return;
     }
 
-    // Here you would integrate with your backend/email service
-    console.log("Email submitted:", email);
-    setSubmitted(true);
-    setError("");
+    try {
+      const formData = new FormData();
+      formData.append("email", email);
+      await sendToWaitlist(formData); // Assuming sendToWaitlist is callable from client
+      setSubmitted(true);
+      setError("");
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+    }
   };
 
   const scrollToTop = () => {
@@ -43,7 +48,7 @@ export default function LandingPage() {
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <Send className="w-6 h-6 text-blue-600" />
-          <span className="text-xl font-bold">PostOnce</span>
+          <span className="text-xl font-bold">SmartPostCentral</span>
         </div>
         <div>
           <button className="px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">
@@ -118,15 +123,21 @@ export default function LandingPage() {
           <div className="text-sm text-gray-500">
             <p className="mb-2">Join our growing community of early adopters</p>
             <div className="flex -space-x-2">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div
-                  key={i}
-                  className="w-8 h-8 rounded-full bg-gray-300 border-2 border-white flex items-center justify-center text-xs font-medium text-gray-600"
-                >
-                  {String.fromCharCode(64 + i)}
-                </div>
+              {[
+                avatar4.src,
+                avatar1.src,
+                avatar2.src,
+                avatar3.src,
+                avatar.src,
+              ].map((src, idx) => (
+                <img
+                  key={idx}
+                  src={src}
+                  alt={`Avatar ${idx + 1}`}
+                  className="w-9 h-9 rounded-full border-2 border-white object-cover"
+                />
               ))}
-              <div className="w-8 h-8 rounded-full bg-blue-100 border-2 border-white flex items-center justify-center text-xs font-medium text-blue-600">
+              <div className="w-9 h-9 rounded-full bg-blue-100 border-2 border-white flex items-center justify-center text-sm font-semibold text-blue-600">
                 +118
               </div>
             </div>
@@ -197,7 +208,7 @@ export default function LandingPage() {
       <section className="bg-white py-16">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Why PostOnce?</h2>
+            <h2 className="text-3xl font-bold mb-4">Why SmartPostCentral?</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Our platform streamlines your content distribution workflow,
               saving you time and expanding your reach.
@@ -252,7 +263,7 @@ export default function LandingPage() {
       <section className="py-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">
-            Be among the first to try PostOnce
+            Be among the first to try SmartPostCentral
           </h2>
           <p className="text-blue-100 max-w-2xl mx-auto mb-8">
             Our alpha release is coming soon. Join the waitlist now and get
@@ -274,7 +285,9 @@ export default function LandingPage() {
             <div className="mb-6 md:mb-0">
               <div className="flex items-center space-x-2 mb-4">
                 <Send className="w-6 h-6 text-white" />
-                <span className="text-xl font-bold text-white">PostOnce</span>
+                <span className="text-xl font-bold text-white">
+                  SmartPostCentral
+                </span>
               </div>
               <p className="max-w-xs">
                 Publish your content across multiple platforms with just one
@@ -345,7 +358,8 @@ export default function LandingPage() {
 
           <div className="pt-8 border-t border-blue-800 flex flex-col md:flex-row justify-between items-center">
             <p>
-              &copy; {new Date().getFullYear()} PostOnce. All rights reserved.
+              &copy; {new Date().getFullYear()} SmartPostCentral. All rights
+              reserved.
             </p>
             <div className="flex space-x-4 mt-4 md:mt-0">
               <button className="hover:text-white transition-colors">
