@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { avatar, avatar1, avatar2, avatar3, avatar4 } from "@/lib/avatars";
 import { sendToWaitlist } from "@/lib/data";
 import {
@@ -19,6 +19,17 @@ export default function LandingPage() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [location, setlocation] = useState(Object);
+
+  useEffect(() => {
+    const getClientLocation = async () => {
+      const res = await fetch("https://ipinfo.io/json");
+      const locationData = await res.json();
+      setlocation(locationData);
+    };
+
+    getClientLocation();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +42,7 @@ export default function LandingPage() {
     try {
       const formData = new FormData();
       formData.append("email", email);
-      await sendToWaitlist(formData); // Assuming sendToWaitlist is callable from client
+      await sendToWaitlist(formData, location); // Assuming sendToWaitlist is callable from client
       setSubmitted(true);
       setError("");
     } catch (err) {
