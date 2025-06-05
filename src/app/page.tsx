@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react";
 import { avatar, avatar1, avatar2, avatar3, avatar4 } from "@/lib/avatars";
 import { sendToWaitlist } from "@/lib/data";
@@ -130,7 +131,7 @@ export default function LandingPage() {
                 avatar3.src,
                 avatar.src,
               ].map((src, idx) => (
-                <img
+                <Image
                   key={idx}
                   src={src}
                   alt={`Avatar ${idx + 1}`}
