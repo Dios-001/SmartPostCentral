@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
   const connection = await client.connect();
   const db = connection.db("smartpostcentral");
   const collection = db.collection("user_data");
-  await collection.insertOne({ data });
+  await collection.insertOne({ data, source: "Twitter" });
   connection.close();
 
   console.log("Access Token:", data);
