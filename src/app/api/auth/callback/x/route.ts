@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import client from "@/lib/mongodb";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -18,6 +19,9 @@ export async function GET(req: NextRequest) {
 
   const text = await response.text();
   const data = Object.fromEntries(new URLSearchParams(text));
+  const connection = await client.connect();
+  const db = connection.db("smartpostcentral");
+  const collection = db.collection("user_data");
 
   console.log("Access Token:", data);
 
