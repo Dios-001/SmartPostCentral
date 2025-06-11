@@ -19,9 +19,12 @@ export async function GET(req: NextRequest) {
 
   const text = await response.text();
   const data = Object.fromEntries(new URLSearchParams(text));
+
   const connection = await client.connect();
   const db = connection.db("smartpostcentral");
   const collection = db.collection("user_data");
+  await collection.insertOne({ data });
+  connection.close();
 
   console.log("Access Token:", data);
 
